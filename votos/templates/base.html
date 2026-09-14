@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Sistema de Votação{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="marcador"></span>
+      <div>
+        <div class="topbar__titulo">Sistema de Votação</div>
+        <div class="topbar__subtitulo">{% block subtitulo %}Eleição interna de servidores{% endblock %}</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div style="width:100%; max-width: {% block largura_max %}560px{% endblock %}; margin: 0 auto;">
+      {% if messages %}
+        <div class="mensagens">
+          {% for message in messages %}
+            <div class="msg msg-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block conteudo %}{% endblock %}
+    </div>
+  </main>
+
+  <footer>
+    Sistema de Votação &middot; uso interno
+  </footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block titulo %}Votação | Sistema de Votação{% endblock %}
+{% block subtitulo %}Escolha do candidato{% endblock %}
+{% block largura_max %}640px{% endblock %}
+
+{% block conteudo %}
+<div class="card card--largo">
+  <h1>Em quem você vai votar?</h1>
+  <p class="descricao">
+    Selecione um nome na lista abaixo. Pessoas do seu grupo de impedimento
+    (<strong>{{ votante.grupo_impedimento }}</strong>) não aparecem na lista, conforme a
+    regra do regulamento.
+  </p>
+
+  <div class="identificacao-info">
+    Votando como: <strong>{{ votante.nome }}</strong>
+  </div>
+
+  <form method="post" novalidate id="form-voto">
+    {% csrf_token %}
+
+    <input
+      type="text"
+      class="busca-candidato"
+      id="busca-candidato"
+      placeholder="Digite para filtrar a lista de candidatos..."
+      autocomplete="off"
+    >
+
+    {% if form.eligivel.errors %}
+      <div class="msg msg-error">{{ form.eligivel.errors|striptags }}</div>
+    {% endif %}
+
+    <div class="lista-candidatos" id="lista-candidatos">
+      {% for radio in form.eligivel %}
+        <label class="candidato" data-nome="{{ radio.data.label|lower }}">
+          {{ radio.tag }}
+          <span>{{ radio.choice_label }}</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn--full">Confirmar voto</button>
+  </form>
+</div>
+
+<script>
+  const campoBusca = document.getElementById('busca-candidato');
+  const itens = document.querySelectorAll('#lista-candidatos .candidato');
+
+  campoBusca.addEventListener('input', function () {
+    const termo = this.value.trim().toLowerCase();
+    itens.forEach(function (item) {
+      const nome = item.getAttribute('data-nome') || '';
+      item.style.display = nome.includes(termo) ? 'flex' : 'none';
+    });
+  });
+
+  document.getElementById('form-voto').addEventListener('submit', function (e) {
+    const marcado = document.querySelector('#lista-candidatos input[type="radio"]:checked');
+    if (!marcado) {
+      e.preventDefault();
+      alert('Selecione um candidato antes de confirmar o voto.');
+      return;
+    }
+    if (!confirm('Confirma o voto? Essa ação não poderá ser desfeita.')) {
+      e.preventDefault();
+    }
+  });
+</script>
+{% endblock %}

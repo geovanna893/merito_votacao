@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block titulo %}Obrigado | Sistema de Votação{% endblock %}
+{% block subtitulo %}Voto registrado{% endblock %}
+{% block largura_max %}560px{% endblock %}
+
+{% block conteudo %}
+<div class="card obrigado">
+  <div class="selo">&#10003;</div>
+  <h1>Obrigado por votar!</h1>
+  <p class="descricao">
+    Seu voto foi registrado com sucesso e é sigiloso. Você já pode fechar esta janela.
+  </p>
+  <a href="{% url 'votos:identificar' %}" class="btn btn--secundario">Voltar ao início</a>
+</div>
+{% endblock %}

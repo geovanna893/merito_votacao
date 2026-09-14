@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block titulo %}Apuração | Sistema de Votação{% endblock %}
+{% block subtitulo %}Apuração de votos (acesso restrito){% endblock %}
+{% block largura_max %}880px{% endblock %}
+
+{% block conteudo %}
+<div class="card card--largo">
+  <h1>Apuração de votos</h1>
+  <p class="descricao">
+    Resultado em tempo real. Esta página é visível apenas para administradores autenticados.
+  </p>
+
+  <div class="resumo-cards">
+    <div class="resumo-card">
+      <div class="numero">{{ total_votantes }}</div>
+      <div class="rotulo">Votantes habilitados</div>
+    </div>
+    <div class="resumo-card">
+      <div class="numero">{{ total_ja_votaram }}</div>
+      <div class="rotulo">Já votaram</div>
+    </div>
+    <div class="resumo-card">
+      <div class="numero">{{ percentual_participacao }}%</div>
+      <div class="rotulo">Participação</div>
+    </div>
+  </div>
+
+  <table class="apuracao">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Candidato</th>
+        <th>Votos</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in resultado %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.total_votos }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p style="margin-top: 24px; color: var(--texto-suave); font-size: 0.85rem;">
+    Total de votos apurados: <strong>{{ total_votos }}</strong>
+  </p>
+</div>
+{% endblock %}

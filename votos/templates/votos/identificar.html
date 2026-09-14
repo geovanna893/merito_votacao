@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block titulo %}Identificação | Sistema de Votação{% endblock %}
+{% block subtitulo %}Identificação do votante{% endblock %}
+{% block largura_max %}560px{% endblock %}
+
+{% block conteudo %}
+<div class="card">
+  <h1>Bem-vindo(a)</h1>
+  <p class="descricao">
+    Para votar, informe seu nome completo exatamente como consta na lista de
+    servidores habilitados a votar.
+  </p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+    {{ form.nome }}
+    {% if form.nome.errors %}
+      <div class="msg msg-error">{{ form.nome.errors|striptags }}</div>
+    {% endif %}
+    <button type="submit" class="btn btn--full">Continuar</button>
+  </form>
+</div>
+{% endblock %}
