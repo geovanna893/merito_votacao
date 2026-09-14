@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u7rp2wk&%hxx#5%taxzc#g0@2x+ig7dlf4cg4%-_fpn^fq^^io
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # Ajuste para produção: liste os domínios/IPs permitidos
+ALLOWED_HOSTS = ['geovanna1406.pythonanywhere.com']  # Ajuste para produção: liste os domínios/IPs permitidos
 
 
 # Application definition
@@ -117,6 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Textos exibidos no cabeçalho do Django Admin
 LOGIN_REDIRECT_URL = '/apuracao/'
